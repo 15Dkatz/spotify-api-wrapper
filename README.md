@@ -10,6 +10,6 @@ But this API conveniently takes care of all this!
 This API was built specifically to support the development of the React project: MusicMaster 2.0
 
 ## Hit the API!
-`curl https://spotify-api-wrapper.herokuapp.com/artist/bruno/top-tracks`
+[https://spotify-api-wrapper.herokuapp.com/artist/bruno/top-tracks](https://spotify-api-wrapper.herokuapp.com/artist/bruno/top-tracks)
 
 Or substitute `bruno` with whatever artist name you want!
