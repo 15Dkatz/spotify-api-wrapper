@@ -31,6 +31,10 @@ const requestNewToken = () => {
 requestNewToken();
 setInterval(() => requestNewToken(), REFRESH_RATE);
 
+app.get('/', (req, res) => {
+  res.send('API up. Try `/artist/:name/top-tracks`');
+});
+
 app.get('/artist/:name/top-tracks', (req, res, next) => {
   const { name } = req.params;
 
