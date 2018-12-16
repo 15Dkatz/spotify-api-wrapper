@@ -3,7 +3,10 @@ const request = require('request');
 const base64 = require('base-64');
 const { id, secret } = require('./secrets/spotify-credentials');
 
-const AUTHORIZATION_HEADER = base64.encode(`${id}:${secret}`);
+const ID = process.env.SPOTIFY_CLIENT_ID || id;
+const SECRET = process.env.SPOTIFY_CLIENT_SECRET || secret;
+
+const AUTHORIZATION_HEADER = base64.encode(`${ID}:${SECRET}`);
 const BASE_SPOTIFY_ADDRESS = 'https://api.spotify.com/v1';
 const MINUTES = 1000 * 60;
 const REFRESH_RATE = 59 * MINUTES; // refresh every 59 minutes, since the tokens last an hour (3600 seconds)
