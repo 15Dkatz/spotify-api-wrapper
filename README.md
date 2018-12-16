@@ -1,15 +1,19 @@
 # A wrapper around the Spotify API
 
-This API supports a `/artist/:name/top-tracks` request to abstract away the API-specific complexities of fetching this data from the API. A request like this involves a few aspects:
-* Grabbing a valid token to access the API
-* Fetching the artist information (artist ID in particular)
-* Using that id to fetch `artist/:id/top-tracks`
+This API supports a couple requests to abstract away the API-specific complexities of fetching data from the Spotify API API. Particularly, the Spotify API requires access tokens to hit their API - an unnecessary level of abstraction while building an App for learning purposes.
 
 But this API conveniently takes care of all this!
 
 This API was built specifically to support the development of the React project: MusicMaster 2.0
 
 ## Hit the API!
-[https://spotify-api-wrapper.herokuapp.com/artist/bruno/top-tracks](https://spotify-api-wrapper.herokuapp.com/artist/bruno/top-tracks)
+#### Get Artist Information:
+[https://spotify-api-wrapper.herokuapp.com/artist/bruno](https://spotify-api-wrapper.herokuapp.com/artist/bruno)
 
-Or substitute `bruno` with whatever artist name you want!
+* Subsititue `bruno` with any artist name!
+
+#### Get an Artist's Top Tracks
+Use an artist id returned from the above request.
+
+[https://spotify-api-wrapper.herokuapp.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks](https://spotify-api-wrapper.herokuapp.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks)
+

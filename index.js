@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
   res.send('API up. Try `/artist/:name/top-tracks`');
 });
 
-app.get('/artist/:name/top-tracks', (req, res, next) => {
+app.get('/artist/:name', (req, res) => {
   const { name } = req.params;
 
   request({
@@ -56,25 +56,20 @@ app.get('/artist/:name/top-tracks', (req, res, next) => {
   }, (error, response, body) => {
     if (error) return next(error);
 
-    const { artists: { items } } = JSON.parse(body);
+    res.json(JSON.parse(body));
+  });
+});
 
-    if (items[0]) {
-      const artistId = items[0].id;
+app.get('/artist/:id/top-tracks', (req, res) => {
+  const { id } = req.params;
 
-      // A country param is required by the Spotify API (400s otherwise)
-      request({
-        url: `${BASE_SPOTIFY_ADDRESS}/artists/${artistId}/top-tracks?country=US`,
-        headers: { Authorization: `Bearer ${globalAccessToken}` }
-      }, (error, response, body) => {
-        if (error) return next(error);
+  request({
+    url: `${BASE_SPOTIFY_ADDRESS}/artists/${id}/top-tracks?country=US`,
+    headers: { Authorization: `Bearer ${globalAccessToken}` }
+  }, (error, response, body) => {
+    if (error) return next(error);
 
-        res.json(JSON.parse(body));
-      });
-    } else {
-      // a success is { tracks: {} }
-      // so an error should be an empty set of tracks
-      res.json({});
-    }
+    res.json(JSON.parse(body));
   });
 });
 
