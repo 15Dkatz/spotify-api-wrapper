@@ -11,6 +11,18 @@ This API was built specifically to support the development of the React project:
 [https://spotify-api-wrapper.herokuapp.com/artist/bruno](https://spotify-api-wrapper.herokuapp.com/artist/bruno)
 
 * Subsititue `bruno` with any artist name!
+* Note that the underlying request returns an array of "artists". This wrapper limits the results to 1. So a response will look like:
+
+```
+{
+  "artists": {
+    ...
+    "items": [],
+    ...
+    "total": 1
+  }
+}
+```
 
 #### Get an Artist's Top Tracks
 Use an artist id returned from the above request.
