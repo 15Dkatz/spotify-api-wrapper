@@ -5,11 +5,11 @@ const { id, secret } = require('./secrets/spotify-credentials');
 
 const AUTHORIZATION_HEADER = base64.encode(`${id}:${secret}`);
 const BASE_SPOTIFY_ADDRESS = 'https://api.spotify.com/v1';
-const SECONDS = 1000;
-// refresh every 59m, since the tokens last an hour (3600 seconds)
-const REFRESH_RATE = 59 * SECONDS;
+const MINUTES = 1000 * 60;
+const REFRESH_RATE = 59 * MINUTES; // refresh every 59 minutes, since the tokens last an hour (3600 seconds)
 
 const app = express();
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
