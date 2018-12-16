@@ -1,10 +1,19 @@
 const express = require('express');
 const request = require('request');
 const base64 = require('base-64');
-const { id, secret } = require('./secrets/spotify-credentials');
 
-const ID = process.env.SPOTIFY_CLIENT_ID || id;
-const SECRET = process.env.SPOTIFY_CLIENT_SECRET || secret;
+let ID;
+let SECRET;
+
+try {
+  const { id, secret } = require('./secrets/spotify-credentials');
+
+  ID = id;
+  SECRET = secret;
+} catch (error) {
+  ID = process.env.SPOTIFY_CLIENT_ID;
+  SECRET = process.env.SPOTIFY_CLIENT_SECRET;
+}
 
 const AUTHORIZATION_HEADER = base64.encode(`${ID}:${SECRET}`);
 const BASE_SPOTIFY_ADDRESS = 'https://api.spotify.com/v1';
