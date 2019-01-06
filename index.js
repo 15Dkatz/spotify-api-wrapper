@@ -1,6 +1,17 @@
 const express = require('express');
 const request = require('request');
 const base64 = require('base-64');
+const LimitingMiddleware = require('./limiting-middleware');
+
+const app = express();
+const limitingMiddleware = new LimitingMiddleware();
+
+app.use(limitingMiddleware.limitByIp());
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
 let ID;
 let SECRET;
@@ -19,13 +30,6 @@ const AUTHORIZATION_HEADER = base64.encode(`${ID}:${SECRET}`);
 const BASE_SPOTIFY_ADDRESS = 'https://api.spotify.com/v1';
 const MINUTES = 1000 * 60;
 const REFRESH_RATE = 59 * MINUTES; // refresh every 59 minutes, since the tokens last an hour (3600 seconds)
-
-const app = express();
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 let globalAccessToken = '';
 

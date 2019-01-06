@@ -8,7 +8,7 @@ This API was built specifically to support the development of the React project:
 
 ## Hit the API!
 #### Get Artist Information:
-[https://spotify-api-wrapper.herokuapp.com/artist/bruno](https://spotify-api-wrapper.herokuapp.com/artist/bruno)
+[https://spotify-api-wrapper.appspot.com/artist/bruno](https://spotify-api-wrapper.appspot.com/artist/bruno)
 
 * Subsititue `bruno` with any artist name!
 * Note that the underlying request returns an array of "artists". This wrapper limits the results to 1. So a response will look like:
@@ -27,5 +27,5 @@ This API was built specifically to support the development of the React project:
 #### Get an Artist's Top Tracks
 Use an artist id returned from the above request.
 
-[https://spotify-api-wrapper.herokuapp.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks](https://spotify-api-wrapper.herokuapp.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks)
+[https://spotify-api-wrapper.appspot.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks](https://spotify-api-wrapper.appspot.com/artist/0du5cEVh5yTK9QJze8zA0C/top=tracks)
 
