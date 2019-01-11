@@ -34,13 +34,19 @@ const REFRESH_RATE = 59 * MINUTES; // refresh every 59 minutes, since the tokens
 let globalAccessToken = '';
 
 const requestNewToken = () => {
-  request({
-    url: 'https://accounts.spotify.com/api/token',
-    method: 'POST',
-    headers: { 'Authorization': `Basic ${AUTHORIZATION_HEADER}` },
-    form: { grant_type: 'client_credentials' }
-  }, (error, response, body) => {
-    globalAccessToken = JSON.parse(body).access_token;
+  return new Promise((resolve, reject) => {
+    request({
+      url: 'https://accounts.spotify.com/api/token',
+      method: 'POST',
+      headers: { 'Authorization': `Basic ${AUTHORIZATION_HEADER}` },
+      form: { grant_type: 'client_credentials' }
+    }, (error, response, body) => {
+      if (error) return reject();
+
+      globalAccessToken = JSON.parse(body).access_token;
+
+      resolve();
+    });
   });
 };
 
@@ -48,33 +54,53 @@ requestNewToken();
 setInterval(() => requestNewToken(), REFRESH_RATE);
 
 app.get('/', (req, res) => {
-  res.send('API up. Try `/artist/:name/top-tracks`');
+  res.send('API up. Try `/artist/:name` or `/artist/:name/top-tracks`');
 });
 
-app.get('/artist/:name', (req, res) => {
-  const { name } = req.params;
+app.get('/artist/:name', (req, res, next) => {
+  const requestArtist = () => {
+    const { name } = req.params;
 
-  request({
-    url: `${BASE_SPOTIFY_ADDRESS}/search?q=${name}&type=artist&limit=1`,
-    headers: { Authorization: `Bearer ${globalAccessToken}` }
-  }, (error, response, body) => {
-    if (error) return next(error);
+    request({
+      url: `${BASE_SPOTIFY_ADDRESS}/search?q=${name}&type=artist&limit=1`,
+      headers: { Authorization: `Bearer ${globalAccessToken}` }
+    }, (error, response, body) => {
+      if (error) return next(error);
 
-    res.json(JSON.parse(body));
-  });
+      res.json(JSON.parse(body));
+    });
+  }
+
+  if (!globalAccessToken) {
+    requestNewToken()
+      .then(() => requestArtist())
+      .catch(error => next(error));
+  } else {
+    requestArtist();
+  }
 });
 
 app.get('/artist/:id/top-tracks', (req, res) => {
-  const { id } = req.params;
+  const requestTopTracks = () => {
+    const { id } = req.params;
 
-  request({
-    url: `${BASE_SPOTIFY_ADDRESS}/artists/${id}/top-tracks?country=US`,
-    headers: { Authorization: `Bearer ${globalAccessToken}` }
-  }, (error, response, body) => {
-    if (error) return next(error);
+    request({
+      url: `${BASE_SPOTIFY_ADDRESS}/artists/${id}/top-tracks?country=US`,
+      headers: { Authorization: `Bearer ${globalAccessToken}` }
+    }, (error, response, body) => {
+      if (error) return next(error);
 
-    res.json(JSON.parse(body));
-  });
+      res.json(JSON.parse(body));
+    });
+  }
+
+  if (!globalAccessToken) {
+    requestNewToken()
+      .then(() => requestTopTracks())
+      .catch(error => next(error));
+  } else {
+    requestTopTracks();
+  }
 });
 
 app.use((err, req, res, next) => {
