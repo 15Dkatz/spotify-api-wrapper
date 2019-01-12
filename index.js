@@ -80,7 +80,7 @@ app.get('/artist/:name', (req, res, next) => {
   }
 });
 
-app.get('/artist/:id/top-tracks', (req, res) => {
+app.get('/artist/:id/top-tracks', (req, res, next) => {
   const requestTopTracks = () => {
     const { id } = req.params;
 
