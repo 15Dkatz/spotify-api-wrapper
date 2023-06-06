@@ -10,7 +10,7 @@ This API was built specifically to support the development of the React project:
 #### Get Artist Information:
 [https://spotify-api-wrapper.appspot.com/artist/david-kando](https://spotify-api-wrapper.appspot.com/artist/david-kando)
 
-Since I first published this API, I've become a Spotify Artist! Search for David Kando as suggested by the URL above :)
+Since I first published this API, I've become a Spotify Artist! Search for David Kando as suggested by the URL above. Support me with a follow and/or listen to my music :)
 
 * Subsititue `david-kando` with any artist name!
 * Note that the underlying request returns an array of "artists". This wrapper limits the results to 1. So a response will look like:
