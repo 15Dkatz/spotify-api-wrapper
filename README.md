@@ -8,9 +8,11 @@ This API was built specifically to support the development of the React project:
 
 ## Hit the API!
 #### Get Artist Information:
-[https://spotify-api-wrapper.appspot.com/artist/bruno](https://spotify-api-wrapper.appspot.com/artist/bruno)
+[https://spotify-api-wrapper.appspot.com/artist/david-kando](https://spotify-api-wrapper.appspot.com/artist/david-kando)
 
-* Subsititue `bruno` with any artist name!
+Since I first published this API, I've become a Spotify Artist! Search for David Kando as suggested by the URL above :)
+
+* Subsititue `david-kando` with any artist name!
 * Note that the underlying request returns an array of "artists". This wrapper limits the results to 1. So a response will look like:
 
 ```
@@ -27,5 +29,5 @@ This API was built specifically to support the development of the React project:
 #### Get an Artist's Top Tracks
 Use an artist id returned from the above request.
 
-[https://spotify-api-wrapper.appspot.com/artist/0du5cEVh5yTK9QJze8zA0C/top-tracks](https://spotify-api-wrapper.appspot.com/artist/0du5cEVh5yTK9QJze8zA0C/top-tracks)
+[https://spotify-api-wrapper.appspot.com/artist/6ep6Hvwexmaa5IqcPxMxqC/top-tracks](https://spotify-api-wrapper.appspot.com/artist/0du5cEVh5yTK9QJze8zA0C/top-tracks)
 
